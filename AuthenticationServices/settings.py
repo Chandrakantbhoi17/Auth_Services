@@ -1,3 +1,7 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv() 
 """
 Django settings for AuthenticationServices project.
 
@@ -78,11 +82,11 @@ WSGI_APPLICATION = 'AuthenticationServices.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Test1',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',  # Change if using a remote database
-        'PORT': '5433',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('POSTGRES_USERNAME'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),  # Change if using a remote database
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 AUTH_USER_MODEL = 'core.CustomUser'
