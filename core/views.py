@@ -24,7 +24,7 @@ class LoginView(APIView):
         return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutView(APIView):
-    def post(self, request):
+    def get(self, request):
         logout(request)
         return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
 
@@ -40,3 +40,10 @@ class UserProfileView(APIView):
                 "address": user.address
             }, status=status.HTTP_200_OK)
         return Response({"error": "Not authenticated"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+
+class HelthCheck(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response({"massage":'ok !'})
