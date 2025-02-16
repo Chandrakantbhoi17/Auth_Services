@@ -5,20 +5,20 @@ services:
     container_name: authentication_services
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-        .:/authentication_services/data
+      - .:/authentication_services/data
     ports:
-        "8000:8000"
+      - "8000:8000"
     depends_on:
-       db
+      - db
   db:
     image: postgres
     environment:
        POSTGRES_USER: ${POSTGRES_USERNAME}
        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-        postgresdata:/var/lib/postgresql/data
+       - postgresdata:/var/lib/postgresql/data
     ports:
-       "5432:5432"
+      - "5432:5432"
     env_file:
        .env
       
@@ -29,9 +29,9 @@ services:
           PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
 
     ports:
-       "8080:80"
+      - "8080:80"
     depends_on:
-        db
+      - db
     env_file:
       .env
 volumes:
