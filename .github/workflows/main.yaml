@@ -15,8 +15,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/authenticationservices-web  # Correct the image name
-
+          images: ${{ secrets.DOCKER_USERNAME }}/authenticationservices-web 
       - name: Login to DockerHub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
