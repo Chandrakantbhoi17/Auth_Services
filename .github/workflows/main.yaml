@@ -44,7 +44,7 @@ jobs:
           
       - name: Set permissions for private key
         run: |
-             echo "${{ env.AWS_PRIVATE_KEY }}" > key.pem
+             echo "${{secrets.EC2_PEM_KEY }}" > key.pem
              chmod 600 key.pem
       - name: Pull Docker image
         run: |
