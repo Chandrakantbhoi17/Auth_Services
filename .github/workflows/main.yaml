@@ -12,6 +12,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        
+      - name: Set up SSH with .pem file
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_PEM_KEY }}" > ~/.ssh/ec2-key.pem
+          chmod 600 ~/.ssh/ec2-key.pem
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
