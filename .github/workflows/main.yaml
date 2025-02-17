@@ -50,10 +50,10 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}}  'sudo docker pull ${{secrets.DOCKER_USERNAME}}/authenticationservices_web:latest'
   
-      - name: Stop running container
-        run: |
-         ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker stop cddemo || true'
-         ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker rm cddemo || true'
-      - name: Run new container
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker run -d --name authenticationservices_web -p 80:3000 ${{secrets.DOCKER_USERNAME}}/authenticationservices_web:latest'
+      # - name: Stop running container
+      #   run: |
+      #    ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker stop cddemo || true'
+      #    ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker rm cddemo || true'
+      # - name: Run new container
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker run -d --name authenticationservices_web -p 80:3000 ${{secrets.DOCKER_USERNAME}}/authenticationservices_web:latest'
