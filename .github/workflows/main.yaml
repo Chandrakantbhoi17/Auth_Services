@@ -49,11 +49,10 @@ jobs:
       - name: Pull Docker image
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}}  'sudo docker pull ${{secrets.DOCKER_USERNAME}}/authenticationservices-web:latest'
-  
-      - name: Stop running container
+      - name: Remove running container if exists
         run: |
-         ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker stop cddemo || true'
-         ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker rm cddemo || true'
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_HOST }} 'if [ $(sudo docker ps -q -f name=authenticationservices-web) ]; then sudo docker stop authenticationservices-web && sudo docker rm authenticationservices-web; fi'
+
       - name: Run new container
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}} 'sudo docker run -d --name authenticationservices-web -p 8000:8000 ${{secrets.DOCKER_USERNAME}}/authenticationservices-web:latest'
