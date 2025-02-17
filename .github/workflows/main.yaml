@@ -48,7 +48,7 @@ jobs:
              chmod 600 key.pem
       - name: Pull Docker image
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@your-ec2-instance-ip 'sudo docker pull ${{secrets.DOCKER_USERNAME}}/authenticationservices_web:latest'
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}}  'sudo docker pull ${{secrets.DOCKER_USERNAME}}/authenticationservices_web:latest'
   
       - name: Stop running container
         run: |
