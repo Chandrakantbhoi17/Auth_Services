@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
   
@@ -47,6 +47,7 @@ jobs:
       - name: Pull Docker image
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{secrets.EC2_HOST}}  'sudo docker pull ${{secrets.DOCKER_USERNAME}}/authenticationservices-web:latest'
+      
       - name: Remove running container if exists
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@${{ secrets.EC2_HOST }} 'if [ $(sudo docker ps -q -f name=authenticationservices-web) ]; then sudo docker stop authenticationservices-web && sudo docker rm authenticationservices-web; fi'
